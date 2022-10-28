@@ -5,11 +5,7 @@ import { useEffect, useState } from 'react';
 import { useMemo } from 'react';
 
 const UserList = ({ usersArray }) => {
-  const { defaultAvatarImg } = useContext(AuthContext);
-  const [users, setUsers] = useState([]);
-  // useEffect(() => {
-  //   setUsers(users);
-  // }, [usersArray]);
+const { defaultAvatarImg } = useContext(AuthContext);
 
   return (
     <ul className={styles.userList}>

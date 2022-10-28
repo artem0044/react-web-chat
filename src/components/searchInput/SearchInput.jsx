@@ -18,6 +18,7 @@ const SearchInput = () => {
     setUsername(e.target.value);
   }, [])
 
+
   const trimmedUsername = useMemo(() => username.trim().toLowerCase(), [username]);
 
   useEffect(() => {
