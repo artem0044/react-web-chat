@@ -1,0 +1,35 @@
+/* .Message {
+    display    : flex;
+    align-items: center;
+}
+
+.messagesInfo {
+    display       : flex;
+    flex-direction: column;
+}
+
+.messagesContent {
+    display       : flex;
+    flex-direction: column;
+    max-width     : 80%;
+    gap           : 10px;
+}
+
+.messagesContent p {
+    padding         : 10px 20px;
+    border-radius   : 0 4px 4px 4px;
+    max-width       : max-content;
+    background-color: #fff;
+}
+
+.avatar {
+    object-fit   : cover;
+    margin-right : 20px;
+    width        : 40px;
+    height       : 40px;
+    border-radius: 50%;
+}
+
+.imgMessage {
+    width: 50%;
+} */

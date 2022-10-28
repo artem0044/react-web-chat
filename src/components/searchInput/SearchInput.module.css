@@ -1,0 +1,31 @@
+.fieldContainer {
+  display       : flex;
+  align-items   : center;
+  flex-direction: column;
+  border-bottom : 2px #8810f0 solid;
+}
+
+.searchInput {
+  padding         : 6px;
+  width           : 290px;
+  height          : 50px;
+  border          : none;
+  background-color: transparent;
+  font-size       : 20px;
+  color           : #fff;
+  outline         : none;
+
+}
+
+.search-input::placeholder {
+  color: #fff;
+}
+
+.searchImg {
+  width              : 20px;
+  height             : 20px;
+  background-image   : url(../../../public/images/zoom-out.svg);
+  background-size    : cover;
+  background-position: center;
+  fill               : #fff;
+}
