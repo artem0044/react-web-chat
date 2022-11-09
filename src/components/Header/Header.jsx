@@ -2,36 +2,45 @@ import styles from './Header.module.css'
 import { signOut } from "firebase/auth";
 import { auth } from '../../firebase';
 import { useContext, useMemo, useState } from 'react';
-import { AuthContext } from '../../AuthContext';
-import { doc, getDoc } from "firebase/firestore";
+import { AuthContext } from '../../context/AuthContext';
+import { doc, onSnapshot } from "firebase/firestore";
 import { firestore } from '../../firebase';
 import { useEffect } from 'react';
+import { UserChatContext } from '../../context/UserChatContext';
 
 const Header = () => {
   const { currentUser, defaultAvatarImg } = useContext(AuthContext);
-  const [fullname, setFullName] = useState([]);
+  const [userInfo, setUserInfo] = useState({
+    name: '',
+    surname: '',
+    photoURL: '',
+  });
+  const { dispatch } = useContext(UserChatContext);
 
   useEffect(() => {
-    try {
-      const docRef = doc(firestore, "users", currentUser.uid);
-      getDoc(docRef).then(user => {
-        // console.log(user.data().displayName, user.data().surname);
-        setFullName([user.data().displayName, user.data().surname]);
-      });
-    } catch (err) {
-      console.log(err);
+    if (!currentUser?.uid) {
+      return;
     }
 
-  }, [currentUser]);
+    const unsub = onSnapshot(doc(firestore, "users", currentUser.uid), (doc) => {
+      if (!doc.exists()) return;
 
-  // useEffect(getUserInfo, [currentUser]);
+      setUserInfo({
+        name: doc.data().displayName,
+        surname: doc.data().surname,
+        photoURL: doc.data().photoURL,
+      })
+    });
 
+    return () => {
+      unsub();
+    }
 
-
-  // const userInfo = useMemo(() => getUserInfo(), [currentUser]);
-  // console.log(userInfo);
+  }, [currentUser?.uid]);
 
   const logOut = async () => {
+    setUserInfo({});
+    dispatch({ type: "Change_UserChat", payload: {} })
     await signOut(auth);
   };
 
@@ -44,13 +53,13 @@ const Header = () => {
           ?
           <>
             <div className={styles.userInfo}>
-              <img className='avatarImg' src={currentUser.photoURL || defaultAvatarImg} alt="" />
+              <img className='avatarImg' src={userInfo.photoURL} alt="" />
               {
-                (!fullname[0] && !fullname[1])
+                (!userInfo.name && !userInfo.surname)
                   ?
-                  <></>
+                  <p>Username</p>
                   :
-                  <p>{(fullname[0] + " " + fullname[1])}</p>
+                  <p>{(userInfo.name + " " + userInfo.surname)}</p>
               }
             </div>
             <button onClick={logOut} className={styles.LogOutBtn}>Log out</button>

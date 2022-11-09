@@ -29,33 +29,34 @@ const Registration = () => {
 
       const storageRef = ref(storage, data.name);
 
-
-      await setDoc(doc(firestore, "users", userCreditals.user.uid), {
-        displayName: data.name,
-        surname: data.surname,
-        email: data.email,
-        photoURL: null,
-      });
-
-      await setDoc(doc(firestore, "usersChats", userCreditals.user.uid), {});
-
-
       uploadBytesResumable(storageRef, data.file).then(async () => {
         const url = await getDownloadURL(storageRef);
         console.log(url);
-
         const userRef = doc(firestore, "users", userCreditals.user.uid);
-
-        await updateDoc(userRef, {
-          photoURL: url
+        
+        await setDoc(doc(firestore, "users", userCreditals.user.uid), {
+          displayName: data.name,
+          surname: data.surname,
+          email: data.email,
+          photoURL: url,
+          uid: userCreditals.user.uid.trim()
         });
+  
+        await setDoc(doc(firestore, "usersChats", userCreditals.user.uid), {});    
+
+        // await updateDoc(userRef, {
+        //   photoURL: url,
+        // });
 
         await updateProfile(userCreditals.user, {
           displayName: data.name,
           photoURL: url,
         });
 
+        navigate('/');
       })
+
+
 
       // uploadTask.on(
       //   (error) => {
@@ -78,7 +79,7 @@ const Registration = () => {
       //   }
       // );
 
-      navigate('/');
+      
 
     } catch (res) {
       switch (res.code) {

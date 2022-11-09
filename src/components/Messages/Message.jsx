@@ -1,16 +1,22 @@
 import 'C:/Users/Артем/Desktop/vscode/reactRegistration/my-app/src/App.css';
+import { useContext, useEffect } from 'react';
+import { UserChatContext } from '../../context/UserChatContext';
+import { AuthContext } from '../../context/AuthContext';
 
-const Message = () => {
+const Message = ({ message, parent }) => {
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(UserChatContext);
+
   return (
-    <div className="Message">
+    <div className={currentUser.uid === message.senderId ? 'Message owner' : 'Message'}>
       <div className="Message__info">
-        <img src="../images/iAm.jpg" alt="" />
+        <img src={currentUser.uid === message.senderId ? currentUser.photoURL : data.user.photoURL} alt="" />
         <span>just now</span>
       </div>
 
       <div className="Message__content">
-        <p>some text</p>
-        <img  src="../images/iAm.jpg" alt="" />
+        <p>{message.text}</p>
+        <img src="" alt="" />
       </div>
     </div>
   );

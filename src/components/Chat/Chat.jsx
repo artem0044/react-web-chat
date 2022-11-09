@@ -1,17 +1,20 @@
+import { UserChatContext } from '../../context/UserChatContext';
 import MessagesСontainer from '../MessagesContainer/MessagesContainer';
 import 'C:/Users/Артем/Desktop/vscode/reactRegistration/my-app/src/App.css';
+import { useContext } from 'react';
+import SendMessageInput from '../SendMessageInput/SendMessageInput';
+
 
 const Chat = () => {
+  const { data } = useContext(UserChatContext);
+
   return (
     <div className='chat'>
       <div className='chat__head'>
-        <h1 className='chat__header'>Username</h1>
+        <h1 className='chat__header'>{data.user?.displayName}</h1>
       </div>
       <MessagesСontainer />
-      <label htmlFor="textarea" className='chat__send-message-field'>
-        <textarea name="area" id="textarea" placeholder='....'></textarea>
-        <button className='chat__primary-btn'>send</button>
-      </label>
+      <SendMessageInput />
     </div>
   );
 }
