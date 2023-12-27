@@ -6,6 +6,9 @@ const errorHandler = (err, setErrors) => {
     case "auth/user-not-found":
       setErrors(prev => ({ ...prev, password: "Invalid password or email", email: "Invalid password or email" }));
       break;
+    case "auth/wrong-password":
+      setErrors(prev => ({ ...prev, password: "Invalid password or email", email: "Invalid password or email" }));
+      break;
     default:
       console.log(err);
       break;

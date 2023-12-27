@@ -1,0 +1,18 @@
+.contextmenu {
+    position        : absolute;
+    z-index: 2;
+    background-color: #eeeeee;
+    width           : 110px;
+    cursor          : pointer;
+    border-radius   : 3px;
+}
+
+.menuitem {
+    text-align: center;
+    font-size : 20px;
+    padding   : 8px;
+}
+
+.menuitem:hover {
+    background-color: #dfdddd;
+}

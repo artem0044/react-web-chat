@@ -7,13 +7,14 @@ import { AuthContext } from "../../context/AuthContext";
 import { useMemo } from "react";
 
 
-const SendMessageInput = () => {
-  const [text, setText] = useState('');
+const SendMessageInput = ({ text, setText }) => {
+
   const [file, setFile] = useState('');
   const { data } = useContext(UserChatContext);
   const { currentUser } = useContext(AuthContext);
 
-  const trimmedText = useMemo(() => text.trim());
+  const trimmedText = useMemo(() => text.trim(), [text]);
+
 
   const sendMessage = async () => {
     if (!trimmedText) return;
@@ -25,18 +26,23 @@ const SendMessageInput = () => {
       messages: arrayUnion({
         id: uuidv4(),
         senderId: currentUser.uid,
+        senderName: currentUser.displayName,
         text: trimmedText,
         date: Date.now(),
       })
     });
 
     await updateDoc(doc(firestore, "usersChats", currentUser.uid), {
-      [data.chatId + '.lastMessage']: trimmedText,
+      [data.chatId + '.lastMessage']: (trimmedText.length > 20) ? trimmedText.slice(0, 20) + '...' : trimmedText,
+      [data.chatId + '.lastMessageStatus']: 'checked',
+      [data.chatId + '.senderId']: currentUser.uid,
       [data.chatId + '.date']: serverTimestamp(),
     });
 
     await updateDoc(doc(firestore, "usersChats", data.user.uid), {
-      [data.chatId + '.lastMessage']: trimmedText,
+      [data.chatId + '.lastMessage']: (trimmedText.length > 20) ? trimmedText.slice(0, 20) + '...' : trimmedText,
+      [data.chatId + '.lastMessageStatus']: 'unchecked',
+      [data.chatId + '.senderId']: currentUser.uid,
       [data.chatId + '.date']: serverTimestamp(),
     });
   }

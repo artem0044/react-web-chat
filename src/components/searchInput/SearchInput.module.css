@@ -1,4 +1,5 @@
 .fieldContainer {
+  width         : 100%;
   display       : flex;
   align-items   : center;
   flex-direction: column;
@@ -7,7 +8,7 @@
 
 .searchInput {
   padding         : 6px;
-  width           : 290px;
+  width           : 100%;
   height          : 50px;
   border          : none;
   background-color: transparent;

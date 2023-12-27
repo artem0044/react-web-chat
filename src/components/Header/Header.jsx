@@ -7,6 +7,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { firestore } from '../../firebase';
 import { useEffect } from 'react';
 import { UserChatContext } from '../../context/UserChatContext';
+import "C:/Users/Артем/Desktop/vscode/reactRegistration/my-app/src/App.css";
 
 const Header = () => {
   const { currentUser, defaultAvatarImg } = useContext(AuthContext);

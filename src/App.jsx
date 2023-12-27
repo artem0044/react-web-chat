@@ -2,37 +2,46 @@ import './App.css';
 import Registration from './components/Registration/Registration';
 import Login from './components/Registration/Login';
 import ChatContainer from './components/ChatContainer/ChatContainer';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from './AuthContext.jsx';
+import { AuthContext } from './context/AuthContext';
 import Header from './components/Header/Header';
-import Loader from './components/Loader/Loader';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate()
 
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to='/login' />
-    }
-    return children;
+  const PrivateRoutes = () => {
+    return (
+      <Routes>
+        <Route index path='/' element={<ChatContainer />} />
+        <Route path='*' element={<Navigate to='/' />} />
+      </Routes>
+    )
+  }
+
+  const AuthRoutes = () => {
+    return (
+      <Routes>
+        <Route path='login' element={<Login />} />
+        <Route path='registration' element={<Registration />} />
+        <Route path='*' element={<Navigate to='/login' />} />
+      </Routes>
+    )
   }
 
 
   return (
     <div className="App" >
       <Header />
-      <Routes >
-        <Route index path='/' element={
-          <ProtectedRoute>
-            <ChatContainer />
-          </ProtectedRoute>
-        } />
-        <Route path='login' element={<Login />} />
-        <Route path='registration' element={<Registration />} />
-        <Route path='*' element={<div >Not found</div>} />
-      </Routes >
+      {
+        currentUser
+          ?
+          <PrivateRoutes />
+          :
+          <AuthRoutes />
+      }
     </div >
   );
 };

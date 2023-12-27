@@ -1,0 +1,55 @@
+.modalIcon {
+    pointer-events  : none;
+    display         : none;
+    position        : fixed;
+    top             : 0;
+    left            : 0;
+    height          : 100%;
+    width           : 100%;
+    background-color: rgb(149 163 163 / 50%);
+}
+
+.modalIcon.open {
+    pointer-events: all;
+    display       : block;
+}
+
+.wrapper {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.wrapper::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+    background   : #935cd3;
+    border-radius: 10px;
+    height       : 5px;
+}
+
+.body {
+    padding         : 8px 0;
+    position        : absolute;
+    top             : 50%;
+    right           : 50%;
+    transform       : translate(50%, -50%);
+    background-color: #72509c;
+    border-radius   : 10px;
+
+}
+
+.body h2 {
+    color: #fff;
+}
+
+.btnCont {
+    display        : flex;
+    justify-content: flex-end;
+    padding-right  : 10px;
+}

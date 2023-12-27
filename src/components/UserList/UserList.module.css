@@ -2,6 +2,28 @@
     width      : 100%;
     padding-top: 20px;
     overflow-x : hidden;
+    overflow-y : scroll;
+}
+
+.userList::-webkit-scrollbar {
+    width: 6px;
+}
+
+.userList::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+.userList::-webkit-scrollbar-thumb {
+    background   : #935cd3;
+    border-radius: 10px;
+    height       : 5px;
+}
+
+.userList.modified {
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    width          : 500px;
 }
 
 .userList img {
@@ -13,10 +35,15 @@
 }
 
 .item {
+    width      : 100%;
     cursor     : pointer;
     padding    : 10px 5px;
     display    : flex;
     align-items: center;
+}
+
+.item.unchecked {
+    background-color: #72509c;
 }
 
 .item:hover {

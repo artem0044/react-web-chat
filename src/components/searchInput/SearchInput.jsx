@@ -26,7 +26,7 @@ const SearchInput = ({ props: { setUsername, username } }) => {
       setUsers([]);
       return;
     }
-    console.log(currentUser.displayName);
+    
     if (!currentUser.displayName) return;
 
     const us = [];
@@ -40,7 +40,6 @@ const SearchInput = ({ props: { setUsername, username } }) => {
           us.push(user.data());
         }
       });
-      console.log(us)
       setUsers(us);
     });
   }, [trimmedUsername]);
